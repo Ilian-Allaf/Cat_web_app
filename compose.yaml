@@ -1,0 +1,22 @@
+services:
+  app:
+    image: tanguylichau/webapp
+    container_name: webapp
+    ports:
+      - 8080:3000
+    networks:
+      - bridge-network
+  database:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - mongovolume:/data/db
+    networks:
+      - bridge-network
+volumes:
+  mongovolume:
+networks:
+  bridge-network:
+    driver: bridge
