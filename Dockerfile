@@ -1,19 +1,19 @@
-# Choose the Image which has Node installed already
+# Parent image with node installed
 FROM node:alpine
 
-WORKDIR /app
+# We first copy the files related to the dependencies
+COPY package*.json .
 
-COPY package*.json ./
-
-# Install the Project Dependencies like Express Framework
+# We install the project dependencies 
 RUN npm install
 
-# COPY all the files from Current Directory into the Container
+# We copy files needed for the app from current directory into the container
 COPY index.js .
 COPY index.html .
+COPY bindExample.txt .
 
-# Tell that this image is going to Open a Port 
+# Tell the image to open a certain port
 EXPOSE 3000
 
-# Default Command to launch the Application
-CMD ["npm", "start"]
+# Default command executed at the start of the container
+CMD ["node", "index.js"]
