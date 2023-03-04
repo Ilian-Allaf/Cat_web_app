@@ -1,22 +1,44 @@
+# Define the services used in this Docker Compose environment
 services:
+  # The app service runs a web application
   app:
-    image: tanguylichau/webapp
+    # Use the tanguylichau/webapp:1.0 Docker image
+    image: tanguylichau/webapp:1.0
+    # Set the container name to webapp
     container_name: webapp
+    # Map port 3000 in the container to port 3000 on the host
     ports:
-      - 8080:3000
+      - 3000:3000
+    # Connect to the bridge-network network
     networks:
       - bridge-network
+    # Bind a local txt file to the container
+    volumes:
+      - type: bind
+        source: C:/Users/tangl/Desktop/ProjetCC/CloudComputingProject/bindExample.txt
+        target: /bindExample.txt
+  # The database service runs a MongoDB database
   database:
+    # Use the mongo Docker image
     image: mongo
+    # Set the container name to mongodb
     container_name: mongodb
+    # Map port 27017 in the container to port 27017 on the host
     ports:
       - 27017:27017
+    # Mount a volume for persistent data storage
     volumes:
       - mongovolume:/data/db
+    # Connect to the bridge-network network
     networks:
       - bridge-network
+# Define the volumes used in this Docker Compose environment
 volumes:
+  # The mongovolume volume is used by the database service
   mongovolume:
+# Define the networks used in this Docker Compose environment
 networks:
+  # The bridge-network network is used by both services
   bridge-network:
+    # Use the bridge network driver
     driver: bridge
