@@ -2,15 +2,76 @@
 <html>
   <head>
     <title>Display Cat Image on Button Press</title>
+    <style>
+      body {
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  display: inline-block;
+  padding: 8px 16px;
+  border: none;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  margin-top: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+img {
+  max-width: 100%;
+  max-height: 400px;
+  margin-top: 16px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.response-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.response-container img {
+  max-width: 250px;
+  min-width: 250px;
+  margin: 8px;
+}
+
+    </style>
   </head>
   <body>
     <img id="cat-image" src="" />
     <br />
-    <button id="cat-button">Load Cat</button>
-    <br />
-    <button id="send-button">Save</button>
-    <br />
-    <button id="fetch-button">get All</button>
+    <button id="cat-button">SKIP</button>
+    <button id="send-button">SAVE</button>
+    <button id="fetch-button">LIBRARY</button>
+    <button id="clear-button">CLEAR</button>
+
     <br />
     <div id="response-container"></div>
     <script>
@@ -18,7 +79,17 @@
       const image = document.getElementById("cat-image");
       const saveButton = document.getElementById("send-button");
       const getAllButton = document.getElementById("fetch-button");
+      const clearButton = document.getElementById("clear-button");
       const responseContainer = document.getElementById("response-container");
+
+      fetch("https://api.thecatapi.com/v1/images/search")
+          .then((response) => response.json())
+          .then((data) => {
+            image.src = data[0].url;
+          })
+          .catch((error) => {
+            console.error("Error fetching cat image:", error);
+          });
 
       skipButton.addEventListener("click", () => {
         fetch("https://api.thecatapi.com/v1/images/search")
@@ -49,11 +120,13 @@
             console.error("Error sending request:", error);
           });
       });
-
+      
       getAllButton.addEventListener("click", () => {
+        removeAllChildNodes(responseContainer);
         fetch("http://localhost:3000/getAll")
           .then((response) => response.json())
           .then((data) => {
+            
             for (let i = 0; i < data.length; i++) {
               console.log(data);
               const img = document.createElement("img");
@@ -65,6 +138,16 @@
             console.error("Error fetching all responses:", error);
           });
       });
+
+      clearButton.addEventListener("click", () => {
+        removeAllChildNodes(responseContainer);
+      });
+
+      function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+      }
     </script>
   </body>
 </html>
