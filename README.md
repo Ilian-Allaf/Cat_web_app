@@ -8,13 +8,13 @@ This project is a simple web app that displays random cats pictures, you can dec
 First you need to clone the repository to your local machine
 
 ```
-git clone https://github.com/TanguyLichau/CloudComputingProject.git
+git clone https://github.com/Ilian-Allaf/TD6.git
 ```
 
 Then you have to change your current repository to the one just created
 
 ```
-cd CloudComputingProject
+cd TD6
 ```
 
 Once you are in the good repository you just have to launch the docker compose
