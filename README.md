@@ -8,13 +8,13 @@ This project is a simple web app that displays random cats pictures, you can dec
 First you need to clone the repository to your local machine
 
 ```
-git clone https://github.com/Ilian-Allaf/cat_web_app.git
+git clone https://github.com/Ilian-Allaf/SchoolCloudComputingProject.git
 ```
 
 Then you have to change your current repository to the one just created
 
 ```
-cd cat_web_app
+cd SchoolCloudComputingProject
 ```
 
 Once you are in the good repository you just have to launch the docker compose
